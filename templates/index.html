@@ -1,0 +1,36 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>App Counter<h1>
+      <button onclick="increase()">+</button>
+      <button onclick="decrease()">-</button>
+      <button onclick="count()">reset</button>
+    <div id="counter">
+    <script>
+      const sse = new EventSource('/stream')
+      sse.addEventListener(
+        'message',
+        (e) => {
+          // console.log(e.data)
+          document.querySelector("#counter").innerText = e.data
+        },
+        false
+      )
+      const increase = () => {
+        console.log("increase")
+        fetch('/increase', {
+          "method": "post"})
+        .then(res => res.json())
+        .then(data => console.log(data))
+      }
+      const decrease = () => {
+        console.log("decrease")
+        fetch('/decrease', {
+          "method": "post"})
+        .then(res => res.json())
+        .then(data => console.log(data))
+      }
+    </script>
+  </body>
+</html>
